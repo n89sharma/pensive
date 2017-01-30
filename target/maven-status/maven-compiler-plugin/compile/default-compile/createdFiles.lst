@@ -1,0 +1,7 @@
+Pensive\domain\Comments.class
+Pensive\config\SpringMongoConfig.class
+Pensive\controller\CommentController.class
+Pensive\controller\PensiveAppController.class
+Pensive\db\entity\Comment.class
+Pensive\db\dao\CommentRepository.class
+Pensive\PensiveApp.class
