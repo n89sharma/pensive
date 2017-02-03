@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Paragraph",
+  "description": "A paragraph from a book.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "chapter": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "$ref": "note.json#"
+      }
+    }
+  },
+  "required": [
+    "text"
+  ]
+}
