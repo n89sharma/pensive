@@ -1,26 +1,7 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Paragraph",
-  "description": "A paragraph from a book.",
-  "type": "object",
-  "properties": {
-    "text": {
-      "type": "string"
-    },
-    "chapter": {
-      "type": "string"
-    },
-    "section": {
-      "type": "string"
-    },
-    "notes": {
-      "type": "array",
-      "items": {
-        "$ref": "note.json#"
-      }
-    }
-  },
-  "required": [
-    "text"
-  ]
+  "author": "Carl Sagan",
+  "book": "Cosmos",
+  "chapter": "The shores of the cosmic ocean",
+  "section": "",
+  "text": "The Cosmos is all that is or ever was or ever will be. Our feeblest contemplations of the Cosmos stir us - there is a tingling in the spine, a catch in the voice, a faint sensation, as if a distant memory, of falling from a height. We know we are approaching the greatest of mysteries."
 }

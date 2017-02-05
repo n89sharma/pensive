@@ -1,23 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Note",
-  "description": "A note on a paragraph.",
+  "title": "Paragraph",
+  "description": "A paragraph from a book.",
   "type": "object",
   "properties": {
-    "title": {
+    "id": {
       "type": "string"
     },
     "text": {
       "type": "string"
     },
-    "quoteText": {
+    "author": {
       "type": "string"
     },
-    "user": {
+    "book": {
       "type": "string"
-    },
-    "lockStatus": {
-      "type": "boolean"
     },
     "chapter": {
       "type": "string"
@@ -25,10 +22,10 @@
     "section": {
       "type": "string"
     },
-    "paragraphs": {
+    "noteIds": {
       "type": "array",
       "items": {
-        "$ref": "paragraph.json#"
+        "$ref": "note.json#"
       }
     }
   },

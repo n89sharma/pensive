@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Note",
+  "description": "A note on a paragraph.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "quoteText": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string"
+    },
+    "lockStatus": {
+      "type": "boolean"
+    },
+    "creationDate": {
+      "type": "integer"
+    },
+    "lastEditDate": {
+      "type": "integer"
+    },
+    "typeOfNote": {
+      "type": "string"
+    },
+    "chapter": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string"
+    },
+    "paragraphIds": {
+      "type": "array",
+      "items": {
+        "$ref": "paragraph.json#"
+      }
+    }
+  },
+  "required": [
+    "text"
+  ]
+}
