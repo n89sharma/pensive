@@ -1,13 +1,15 @@
 package Pensive.controllers;
 
 import Pensive.domainobjects.Comment;
-import Pensive.repositories.CommentsRepository;
 import Pensive.domainobjects.Comments;
+import Pensive.repositories.CommentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CommentController extends PensiveAppController{
+
+    //CRUD , create, read, update, delete
 
     @Autowired
     private CommentsRepository commentsRepository;

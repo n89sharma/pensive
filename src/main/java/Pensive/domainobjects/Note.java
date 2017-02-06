@@ -26,6 +26,7 @@ public class Note{
     private int creationDate;
     private int lastEditDate;
     private String typeOfNote;
+    private String book;
     private String chapter;
     private String section;
     private List<String> paragraphIds;
