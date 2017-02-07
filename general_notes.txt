@@ -1,0 +1,79 @@
+* Philosophy
+Why can I not remember the books that I read?
+I cannot remember the books that I read for the following reasons:
+(1) My english skills are lacking, therefore I cannot understand the point the author is trying to convey.
+(2) I do not read actively; I do not question what the author claims; a book turns into a lecture rather than a
+    conversation. Without personal reflection any new information is left in short term memory.
+(3) I do not think critically while I read. If the conclusions and reasoning of every author is taken at face value then
+    as a reader you are likely to be convinced by multiple contradictory claims.
+(4) The topic of the book does not interest me or I cannot relate to the topic.
+(5)
+
+There are two steps for better comprehension:
+(1) Know exactly what the author is trying to convey.
+(2) Have your own notes that:
+    (a) Check the validity of the claims made by the author (Critical Thinking).
+    (b) Apply a concept to beyond what is discussed in the book.
+
+* Features
+- Search notes or paragraphs by topic.
+- Full book word search.
+- Add multiline notes with images.
+- Tag notes as questions, answers, conclusion, or reasoning.
+- Categorize notes as summarization or reader note.
+- Finding definition for highlighted words.
+- Highlighting sentences. (Tagging quoted excerpts from the book)
+
+* use cases
+- As a pensive user I want to fuzzy search books, paragraphs, or notes.
+- As a pensive user I want to use configurable shortcuts for all the features listed below.
+- As a pensive user I want to load multiple paragraphs from the same book on multiple screens to be able to compare and
+    analyze.
+- As a pensive user I want to load multiple paragraphs from a book onto the screen.
+- As a pensive user I want to add one or multiple notes to a paragraph.
+- As a pensive user I want to add multiline notes and images to a note.
+- As a pensive user I want to add multiple tags to a note.
+- As a pensive user I want to search all my notes for a given tag.
+- As a pensive user I want to highlight a word in a paragraph and check its definition.
+- As a pensive user I want to highlight part of a text and search it on google or wikipedia.
+- As a pensive user I want to save the results of external search for a definition or an article.
+- As a pensive user I want to search a paragraph or a note based on a topic.
+- As a pensive user I want to tag my location through the book when I search a topic or a word.
+- As a pensive user I want to search a word in the entire book.
+- As a pensive user I want to go back to where I left off in a book when I close a window.
+- As a pensive user I want to customize how much text appears on the screen from a book.
+- As an admin pensive user I want to be able to select a pdf and transfer all its text into the database under a book.
+- As an admin pensive user I want to point to a link and parse all the text to be added in the database for future use.
+
+* endpoints
+
+/definition - used by the view with all the paragraphs and notes to look up word definitions.
+    read    - get a definition for a word
+
+/paragraphs - used by the view that loads paragraphs from a book
+
+    create  - add a paragraph from an author under a book as an admin.
+    read    - get all paragraphs from a book or a chapter or a section.
+
+/notes      - used by the view that loads paragraphs from a book
+
+    create  - create a new node attached to a paragraph for a user.
+    read    - get all notes attached to a paragraph for a user.
+    update  - update the note text for a user.
+    delete  - delete a note and take it out from the list of notes in the attached paragraph for a user.
+
+/authors
+
+    create  - create a new author with basic bio taken from wikipedia as an admin.
+
+/books      - used by the view that loads a library for a user
+/table-of-contents
+            - used to retrieve table of contents for a particular book.
+/comments   -
+/users      -
+
+/index by image
+/index by paragraph
+/index by note
+-------------------------------------------------------------------------
+Should paragraphs have a business key that the user can refer to it by? book, chapter, section, number, tags?

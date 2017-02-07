@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface ParagraphsRepository extends MongoRepository<Paragraph, String> {
+public interface ParagraphRepository extends MongoRepository<Paragraph, String> {
     public List<Paragraph> findByBook(String book);
     public Paragraph findOne(String id);
     public List<Paragraph> findAll();

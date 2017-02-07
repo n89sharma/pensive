@@ -7,12 +7,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "paragraphs")
-public class Paragraph {
+@AllArgsConstructor
+@Document(collection = "books")
+public class Book {
     @Id
     private String id;
-    private String text;
-    private BookAddress bookAddress;
+    private String title;
+    private String summary;
+    private String publisher;
+    private int isbn;
+    private TableOfContents tableOfContents;
 }

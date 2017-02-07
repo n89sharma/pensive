@@ -1,5 +1,6 @@
-package Pensive.domainobjects;
+package Pensive.domainobjects.aggregated;
 
+import Pensive.domainobjects.Paragraph;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
