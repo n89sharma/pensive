@@ -15,6 +15,13 @@ There are two steps for better comprehension:
     (a) Check the validity of the claims made by the author (Critical Thinking).
     (b) Apply a concept to beyond what is discussed in the book.
 
+* Learning oppurtunity
+- NoSQL databases
+- Spring
+- Angular
+- Java
+- Javascript
+
 * Features
 - Search notes or paragraphs by topic.
 - Full book word search.
@@ -45,35 +52,68 @@ There are two steps for better comprehension:
 - As an admin pensive user I want to be able to select a pdf and transfer all its text into the database under a book.
 - As an admin pensive user I want to point to a link and parse all the text to be added in the database for future use.
 
+
 * endpoints
+/pensive/api/v1/
 
-/definition - used by the view with all the paragraphs and notes to look up word definitions.
-    read    - get a definition for a word
+/authors                                                GET         get all the authors
+/authors                                                POST        create a new author
+/authors/sagan-carl                                     DELETE      delete an author
+/authors/sagan-carl                                     PUT         update the book list for an author
 
-/paragraphs - used by the view that loads paragraphs from a book
+/users                                                  GET         get all the users
+/users                                                  POST        create a new user
+/users/sharmani                                         DELETE      delete a user
 
-    create  - add a paragraph from an author under a book as an admin.
-    read    - get all paragraphs from a book or a chapter or a section.
+/users/sharmani/books                                   GET         get all the books in the user's bookshelf
+/users/sharmani/books                                   POST        add a new book in the user's bookshelf
+/users/sharmani/books/cosmos                            DELETE      delete a book from the user's bookshelf
 
-/notes      - used by the view that loads paragraphs from a book
+/users/sharmani/comments                                GET         get all the comments from the user
+/users/sharmani/notes                                   GET         get all the notes from the user
 
-    create  - create a new node attached to a paragraph for a user.
-    read    - get all notes attached to a paragraph for a user.
-    update  - update the note text for a user.
-    delete  - delete a note and take it out from the list of notes in the attached paragraph for a user.
+/books[?author=sagan]                                   GET         get all the books with a specific criteria
+/books                                                  POST        create a new book
+/books/cosmos                                           DELETE      delete a book
 
-/authors
+/books/cosmos/chapters                                  GET         get all the chapters in the book
+/books/cosmos/chapters                                  POST        add a new chapter in the book
+/books/cosmos/chapters/intro                            DELETE      delete a chapter from a book
 
-    create  - create a new author with basic bio taken from wikipedia as an admin.
+/books/cosmos/chapters/intro/paragraphs                 GET         get all the paragraphs in a chapter
+/books/cosmos/chapters/intro/paragraphs                 POST        add a new paragraph to a chapter
+/books/cosmos/chapters/intro/paragraphs/paragraphId     PUT         update a paragraph
+/books/cosmos/chapters/intro/paragraphs/paragraphId     DELETE      delete a paragraph
 
-/books      - used by the view that loads a library for a user
-/table-of-contents
-            - used to retrieve table of contents for a particular book.
-/comments   -
-/users      -
+/notes[?users=sharmani]                                 GET         get all the notes with a specific criteria
+/notes                                                  POST        create a note
+/notes/noteId                                           PUT         update a note
+/notes/noteId                                           DELETE      delete a note
 
-/index by image
-/index by paragraph
-/index by note
+/comments[?users=sharmani]                              GET         get all the comments with a specific criteria
+/comments                                               POST        create a comment
+/comments/commentId                                     PUT         update a comment
+/comments/commentId                                     DELETE      delete a comment
+
 -------------------------------------------------------------------------
 Should paragraphs have a business key that the user can refer to it by? book, chapter, section, number, tags?
+-------------------------------------------------------------------------
+book has a table of contents.
+each paragraph has a link to a book through book address.
+how do I get the relevant paragraphs on the screen? load all paragraphs from a chapter?
+list of books -> user picks a book. book links to the table of contents
+table of contents -> user picks a chapter
+table of contents -> user picks a section
+
+all the paragraphs under that section or chapter are returned in sequence.
+when the user moves away or closes the window the paragraph id is sent back as reference.
+-------------------------------------------------------------------------
+what can the user do to move away from a view?
+- press a button to go to the next view
+- select another chapter or section from the table of contents?
+- search for a word in the entire book?
+- search for a tag in the entire book?
+- search for an image in the notes?
+- search a view based on visual cues for the location of the content.
+-------------------------------------------------------------------------
+How would the display change based on the paragraph length?

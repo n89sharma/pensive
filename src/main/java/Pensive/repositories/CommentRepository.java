@@ -8,6 +8,5 @@ import java.util.List;
 public interface CommentRepository extends MongoRepository<Comment, String> {
     public List<Comment> findByParentId(String parentId);
     public Comment findOne(String id);
-    public List<Comment> findAll();
     public Comment save(Comment comment);
 }

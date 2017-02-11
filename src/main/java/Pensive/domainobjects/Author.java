@@ -17,9 +17,8 @@ public class Author {
     private String id;
     private String lastName;
     private String firstName;
-    private String profession;
     private String careerDetails;
-    private String education;
+    private String educationBackground;
     private List<Book> publications;
 
     public String getFullName() {

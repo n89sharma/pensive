@@ -20,13 +20,13 @@ public class Note{
     @Id
     private String id;
     private String quoteText;
-    private String title;
+    private String noteTitle;
     private String text;
     private boolean lockStatus;
     private int creationDate;
     private int lastEditDate;
     private NoteType typeOfNote;
     private UserInfo userInfo;
-    private BookAddress bookAddress;
+    private BookInfo bookInfo;
     private List<String> paragraphIds;
 }

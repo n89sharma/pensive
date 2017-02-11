@@ -14,5 +14,5 @@ public class Paragraph {
     @Id
     private String id;
     private String text;
-    private BookAddress bookAddress;
+    private BookInfo bookInfo;
 }

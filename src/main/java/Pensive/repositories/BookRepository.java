@@ -4,5 +4,7 @@ import Pensive.domainobjects.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface BookRepository extends MongoRepository<Book, String> {
-    public Book findByTitle(String title);
+    public Book findByBookTitle(String title);
+
+    public Book save(Book book);
 }

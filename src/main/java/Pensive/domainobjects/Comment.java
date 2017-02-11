@@ -17,6 +17,6 @@ public class Comment{
     private String text;
     private int lastEditDate;
     private int creationDate;
-    private BookAddress bookAddress;
+    private BookInfo bookInfo;
     private UserInfo userInfo;
 }
