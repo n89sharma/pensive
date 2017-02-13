@@ -4,7 +4,8 @@ import lombok.Getter;
 
 public enum PatchActionType {
     ADD("add"),
-    REMOVE("remove");
+    REMOVE("remove"),
+    REPLACE("replace");
 
     @Getter
     private final String actionKey;

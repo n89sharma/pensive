@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * ENDPOINT                                               HTTP METHOD  DESCRIPTION
+ * ENDPOINT                                               HTTP METHOD  DESCRIPTION                                  IMPLEMENTED
  * <p>
- * /notes[?users=sharmani]                                 GET         get all the notes with a specific criteria
- * /notes                                                  POST        create a note
- * /notes/noteId                                           DELETE      delete a note
- * /notes/noteId                                           PATCH       update the text in a note
- * /notes/noteId                                           PATCH       update the paragraph id's in a note
+ * /notes[?users=sharmani]                                 GET         get all the notes with a specific criteria   Y (implement sorting and filter)
+ * /notes                                                  POST        create a note                                Y
+ * /notes/noteId                                           DELETE      delete a note                                Y
+ * /notes/noteId                                           PATCH       update the text in a note                    Y
+ * /notes/noteId                                           PATCH       update the paragraph id's in a note          Y
  */
 
 @RestController
@@ -39,8 +39,13 @@ public class NoteController extends PensiveAppController {
         return noteService.addNote(note);
     }
 
+    @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
+    public void deleteNote(@PathVariable String noteId) {
+        noteService.deleteNote(noteId);
+    }
+
     @RequestMapping(value = "/{noteId}", method = RequestMethod.PATCH)
-    public Note updateParagraphIdList(@PathVariable String noteId, @RequestBody PatchOperation[] patchOperations) {
-        return noteService.updateParagraphIdList(noteId, patchOperations);
+    public Note updateNote(@PathVariable String noteId, @RequestBody PatchOperation[] patchOperations) {
+        return noteService.updateNote(noteId, patchOperations);
     }
 }

@@ -9,21 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-/**
- * ENDPOINT                                                                 HTTP METHOD  DESCRIPTION                                ADDED TO THE CONTROLLER
- * <p>
- * /books[?author=sagan]                                                    GET         get all the books with a specific criteria
- * /books                                                                   POST        create a new book
- * /books/{bookTitle}                                                       DELETE      delete a book
- * /books/{bookTitle}/chapters                                              GET         get all the chapters in the book
- * /books/{bookTitle}/chapters                                              POST        add a new chapter in the book
- * /books/{bookTitle}/chapters/{chaterTitle}                                DELETE      delete a chapter from a book
- * /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     GET         get all the paragraphs in a chapter
- * /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     POST        add a new paragraph to a chapter            Y
- * /books/{bookTitle}/chapters/{chaterTitle}/paragraphs/{paragraphId}       PUT         update a paragraph
- * /books/{bookTitle}/chapters/{chaterTitle}/paragraphs/{paragraphId}       DELETE      delete a paragraph
- */
+import java.util.Map;
 
 @Service
 public class BookService {
@@ -35,6 +21,52 @@ public class BookService {
     public BookService(BookRepository bookRepository, ParagraphRepository paragraphRepository) {
         this.bookRepository = bookRepository;
         this.paragraphRepository = paragraphRepository;
+    }
+
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
+    }
+
+    public Book addBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public void deleteBook(String bookTitle) {
+        if (null != bookRepository.findByBookTitle(bookTitle)) {
+            bookRepository.deleteByBookTitle(bookTitle);
+        }
+    }
+
+    public Map<String, List<String>> getChapters(String bookTitle) {
+        Book book = bookRepository.findByBookTitle(bookTitle);
+        return book.getChapters();
+    }
+
+    public Map<String, List<String>> addChapters(String bookTitle, Map<String, List<String>> chapters) {
+        Book book = bookRepository.findByBookTitle(bookTitle);
+        Map<String, List<String>> currentChapters = book.getChapters();
+        for (String chapterTitle : chapters.keySet()) {
+            if (!currentChapters.containsKey(chapterTitle)) {
+                currentChapters.put(chapterTitle, chapters.get(chapterTitle));
+            }
+        }
+        bookRepository.save(book);
+        return currentChapters;
+    }
+
+    public Map<String, List<String>> deleteChapter(String bookTitle, String chapterTitle) {
+        Book book = bookRepository.findByBookTitle(bookTitle);
+        Map<String, List<String>> currentChapters = book.getChapters();
+        if (currentChapters.containsKey(chapterTitle)) {
+            currentChapters.remove(chapterTitle);
+            bookRepository.save(book);
+        }
+        return book.getChapters();
+    }
+
+    public List<String> getParagraphs(String bookTitle, String chapterTitle) {
+        Book book = bookRepository.findByBookTitle(bookTitle);
+        return book.getChapters().get(chapterTitle);
     }
 
     public Paragraph appendParagraphToChapter(String bookTitle, String chapterTitle, Paragraph paragraph) {
