@@ -8,6 +8,7 @@ import Pensive.repositories.ParagraphRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,10 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Book getBook(String bookId) {
+        return bookRepository.findOne(bookId);
+    }
+
     public Book addBook(Book book) {
         return bookRepository.save(book);
     }
@@ -44,12 +49,15 @@ public class BookService {
 
     public Map<String, List<String>> addChapters(String bookTitle, Map<String, List<String>> chapters) {
         Book book = bookRepository.findByBookTitle(bookTitle);
-        Map<String, List<String>> currentChapters = book.getChapters();
+        Map<String, List<String>> currentChapters = null == book.getChapters()
+                ? new HashMap<String, List<String>>()
+                : book.getChapters();
         for (String chapterTitle : chapters.keySet()) {
             if (!currentChapters.containsKey(chapterTitle)) {
                 currentChapters.put(chapterTitle, chapters.get(chapterTitle));
             }
         }
+        book.setChapters(currentChapters);
         bookRepository.save(book);
         return currentChapters;
     }

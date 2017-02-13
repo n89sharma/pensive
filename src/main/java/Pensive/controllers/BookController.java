@@ -18,11 +18,8 @@ import java.util.Map;
  /books/{bookTitle}/chapters                                              GET         get all the chapters in the book              Y
  /books/{bookTitle}/chapters                                              POST        add a new chapter in the book                 Y
  /books/{bookTitle}/chapters/{chaterTitle}                                DELETE      delete a chapter from a book                  Y
- /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     GET         get all the paragraphs in a chapter
- /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     POST        add a new paragraph to a chapter            Y
- /books/{bookTitle}/chapters/{chaterTitle}/paragraphs/{paragraphId}       PUT         update a paragraph
- /books/{bookTitle}/chapters/{chaterTitle}/paragraphs/{paragraphId}       DELETE      delete a paragraph
-
+ /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     GET         get all the paragraphs in a chapter           Y
+ /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     POST        add a new paragraph to a chapter              Y
  */
 
 @RestController
@@ -39,6 +36,11 @@ public class BookController extends PensiveAppController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Book> getBooks() {
         return bookService.getBooks();
+    }
+
+    @RequestMapping(value = "/{bookId}", method = RequestMethod.GET)
+    public Book getBook(@PathVariable String bookId) {
+        return bookService.getBook(bookId);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
