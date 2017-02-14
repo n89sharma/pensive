@@ -21,11 +21,11 @@ public class ParagraphController extends PensiveAppController {
 
     @RequestMapping(value = "/{paragraphId}", method = RequestMethod.GET)
     public Paragraph getParagraph(@PathVariable String paragraphId) {
-        return paragraphService.getParagraph(paragraphId);
+        return paragraphService.getDomainObject(paragraphId);
     }
 
     @RequestMapping(value = "/{paragraphId}", method = RequestMethod.DELETE)
     public void deleteParagraph(@PathVariable String paragraphId) {
-        paragraphService.deleteParagraph(paragraphId);
+        paragraphService.deleteDomainObject(paragraphId);
     }
 }

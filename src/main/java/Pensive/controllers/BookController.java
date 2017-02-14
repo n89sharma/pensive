@@ -35,17 +35,17 @@ public class BookController extends PensiveAppController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Book> getBooks() {
-        return bookService.getBooks();
+        return bookService.getAllDomainObjects();
     }
 
     @RequestMapping(value = "/{bookId}", method = RequestMethod.GET)
     public Book getBook(@PathVariable String bookId) {
-        return bookService.getBook(bookId);
+        return bookService.getDomainObject(bookId);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+        return bookService.addDomainObject(book);
     }
 
     @RequestMapping(value = "/{bookTitle}", method = RequestMethod.DELETE)

@@ -13,33 +13,18 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class NoteService extends PensiveAppService {
+public class NoteService extends PensiveAppService<Note, String, NoteRepository> {
 
     private final static String pathOfParagraphId = "/paragraphIds/-";
     private final static String pathOfText = "/text";
-    private NoteRepository noteRepository;
 
     @Autowired
     public NoteService(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
-    }
-
-    public Note addNote(Note note) {
-        return noteRepository.save(note);
-    }
-
-    public void deleteNote(String noteId) {
-        if (null != noteRepository.findOne(noteId)) {
-            noteRepository.delete(noteId);
-        }
-    }
-
-    public List<Note> getNotes() {
-        return noteRepository.findAll();
+        super(noteRepository);
     }
 
     public Note updateNote(String noteId, PatchOperation[] patchOperations) {
-        Note note = noteRepository.findOne(noteId);
+        Note note = getRepository().findOne(noteId);
         List<PatchOperation> patchOperationList = Arrays.asList(patchOperations);
         if (!patchOperationList.isEmpty()) {
             for (PatchOperation patchOperation : patchOperations) {
@@ -52,7 +37,7 @@ public class NoteService extends PensiveAppService {
                 }
             }
         }
-        return noteRepository.save(note);
+        return getRepository().save(note);
     }
 
     private void updateParagraphId(PatchOperation patchOperation, Note note) {

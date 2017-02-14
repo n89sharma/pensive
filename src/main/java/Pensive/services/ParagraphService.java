@@ -6,19 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ParagraphService {
+public class ParagraphService extends PensiveAppService<Paragraph, String, ParagraphRepository> {
     private ParagraphRepository paragraphRepository;
 
     @Autowired
     public ParagraphService(ParagraphRepository paragraphRepository) {
-        this.paragraphRepository = paragraphRepository;
+        super(paragraphRepository);
     }
 
-    public Paragraph getParagraph(String paragraphId) {
-        return paragraphRepository.findOne(paragraphId);
-    }
-
-    public void deleteParagraph(String paragraphId) {
-        paragraphRepository.delete(paragraphId);
-    }
 }

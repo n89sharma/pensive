@@ -31,17 +31,22 @@ public class NoteController extends PensiveAppController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Note> getNotes() {
-        return noteService.getNotes();
+        return noteService.getAllDomainObjects();
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Note addNote(@RequestBody Note note) {
-        return noteService.addNote(note);
+        return noteService.addDomainObject(note);
+    }
+
+    @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
+    public void getNote(@PathVariable String noteId) {
+        noteService.getDomainObject(noteId);
     }
 
     @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
     public void deleteNote(@PathVariable String noteId) {
-        noteService.deleteNote(noteId);
+        noteService.deleteDomainObject(noteId);
     }
 
     @RequestMapping(value = "/{noteId}", method = RequestMethod.PATCH)

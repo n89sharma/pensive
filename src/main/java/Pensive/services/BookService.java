@@ -13,27 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class BookService {
+public class BookService extends PensiveAppService<Book, String, BookRepository> {
 
     private BookRepository bookRepository;
     private ParagraphRepository paragraphRepository;
 
     @Autowired
     public BookService(BookRepository bookRepository, ParagraphRepository paragraphRepository) {
-        this.bookRepository = bookRepository;
+        super(bookRepository);
         this.paragraphRepository = paragraphRepository;
-    }
-
-    public List<Book> getBooks() {
-        return bookRepository.findAll();
-    }
-
-    public Book getBook(String bookId) {
-        return bookRepository.findOne(bookId);
-    }
-
-    public Book addBook(Book book) {
-        return bookRepository.save(book);
     }
 
     public void deleteBook(String bookTitle) {
