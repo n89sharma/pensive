@@ -1,0 +1,5 @@
+package Pensive.note;
+
+public enum NoteType {
+    GENERAL_NOTE, QUESTION, ANSWER, CONCLUSION, REASON, ARGUMENT_INTRODUCTION, ARGUMENT_SUMMARY;
+}
