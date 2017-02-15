@@ -5,8 +5,6 @@ import Pensive.prototype.PatchOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * ENDPOINT                                               HTTP METHOD  DESCRIPTION                                  IMPLEMENTED
  * <p>
@@ -19,37 +17,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notes")
-public class NoteController extends Controller {
-
-    private NoteService noteService;
+public class NoteController extends Controller<Note, NoteValidator, NoteRepository, NoteService> {
 
     @Autowired
     public NoteController(NoteService noteService) {
-        this.noteService = noteService;
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Note> getNotes() {
-        return noteService.getAllDomainObjects();
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public Note addNote(@RequestBody Note note) {
-        return noteService.addDomainObject(note);
-    }
-
-    @RequestMapping(value = "/{noteId}", method = RequestMethod.GET)
-    public void getNote(@PathVariable String noteId) {
-        noteService.readDomainObject(noteId);
-    }
-
-    @RequestMapping(value = "/{noteId}", method = RequestMethod.DELETE)
-    public void deleteNote(@PathVariable String noteId) {
-        noteService.deleteDomainObject(noteId);
+        super(noteService);
     }
 
     @RequestMapping(value = "/{noteId}", method = RequestMethod.PATCH)
     public Note updateNote(@PathVariable String noteId, @RequestBody PatchOperation[] patchOperations) {
-        return noteService.updateNote(noteId, patchOperations);
+        return getService().updateNote(noteId, patchOperations);
     }
 }

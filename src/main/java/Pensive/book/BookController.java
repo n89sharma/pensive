@@ -3,10 +3,7 @@ package Pensive.book;
 import Pensive.paragraph.Paragraph;
 import Pensive.prototype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,56 +21,40 @@ import java.util.Map;
  /books/{bookTitle}/chapters/{chaterTitle}/paragraphs                     POST        add a new paragraph to a chapter              Y
  */
 
+@RestController
 @RequestMapping("/books")
-public class BookController extends Controller {
-
-    private BookService bookService;
+public class BookController extends Controller<Book, BookValidator, BookRepository, BookService> {
 
     @Autowired
     public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Book> getBooks() {
-        return bookService.getAllDomainObjects();
-    }
-
-    @RequestMapping(value = "/{bookId}", method = RequestMethod.GET)
-    public Book getBook(@PathVariable String bookId) {
-        return bookService.readDomainObject(bookId);
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addDomainObject(book);
+        super(bookService);
     }
 
     @RequestMapping(value = "/{bookTitle}", method = RequestMethod.DELETE)
     public void deleteBook(@PathVariable String bookTitle) {
-        bookService.deleteBook(bookTitle);
+        getService().deleteBook(bookTitle);
     }
 
     @RequestMapping(value = "/{bookTitle}/chapters", method = RequestMethod.GET)
     public Map<String, List<String>> getChapters(@PathVariable String bookTitle) {
-        return bookService.getChapters(bookTitle);
+        return getService().getChapters(bookTitle);
     }
 
     @RequestMapping(value = "/{bookTitle}/chapters", method = RequestMethod.POST)
     public Map<String, List<String>> addChapters(
             @PathVariable String bookTitle,
             @RequestBody Map<String, List<String>> chapters) {
-        return bookService.addChapters(bookTitle, chapters);
+        return getService().addChapters(bookTitle, chapters);
     }
 
     @RequestMapping(value = "/{bookTitle}/chapters/{chapterTitle}", method = RequestMethod.DELETE)
     public Map<String, List<String>> deleteChapter(@PathVariable String bookTitle, @PathVariable String chapterTitle) {
-        return bookService.deleteChapter(bookTitle, chapterTitle);
+        return getService().deleteChapter(bookTitle, chapterTitle);
     }
 
     @RequestMapping(value = "/{bookTitle}/chapters/{chapterTitle}/paragraphs", method = RequestMethod.GET)
     public List<String> getParagraphs(@PathVariable String bookTitle, @PathVariable String chapterTitle) {
-        return bookService.getParagraphs(bookTitle, chapterTitle);
+        return getService().getParagraphs(bookTitle, chapterTitle);
     }
 
     @RequestMapping(value = "{bookTitle}/chapters/{chapterTitle}/paragraphs", method = RequestMethod.POST)
@@ -81,6 +62,6 @@ public class BookController extends Controller {
             @PathVariable String bookTitle,
             @PathVariable String chapterTitle,
             @RequestBody Paragraph paragraph) {
-        return bookService.appendParagraphToChapter(bookTitle, chapterTitle, paragraph);
+        return getService().appendParagraphToChapter(bookTitle, chapterTitle, paragraph);
     }
 }
