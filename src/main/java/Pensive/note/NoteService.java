@@ -3,11 +3,9 @@ package Pensive.note;
 import Pensive.prototype.PatchActionType;
 import Pensive.prototype.PatchOperation;
 import Pensive.prototype.Service;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @org.springframework.stereotype.Service
@@ -21,55 +19,30 @@ public class NoteService extends Service<Note, NoteValidator, NoteRepository> {
         super(noteRepository, noteValidator);
     }
 
-    public Note updateNote(String noteId, PatchOperation[] patchOperations) {
-        Note note = getRepository().findOne(noteId);
-        List<PatchOperation> patchOperationList = Arrays.asList(patchOperations);
-        if (!patchOperationList.isEmpty()) {
-            for (PatchOperation patchOperation : patchOperations) {
-                if (validatePatchOperation(patchOperation)) {
-                    if (patchOperation.getPath().equals(pathOfParagraphId)) {
-                        updateParagraphId(patchOperation, note);
-                    } else if (patchOperation.getPath().equals(pathOfText)) {
-                        updateText(patchOperation, note);
-                    }
-                }
-            }
+    @Override
+    protected void updateDomainObjectForPatchOperation(Note note, PatchOperation patchOperation) {
+        if (patchOperation.getPath().equals(pathOfParagraphId)) {
+            updateParagraphId(patchOperation, note);
+        } else if (patchOperation.getPath().equals(pathOfText)) {
+            updateText(patchOperation, note);
         }
-        return getRepository().save(note);
     }
 
     private void updateParagraphId(PatchOperation patchOperation, Note note) {
-        if (validatePatchOperationForUpdatingParagraphIds(patchOperation)) {
+        if (getValidator().validatePatchOperationForDomainObject(
+                pathOfParagraphId,
+                patchOperation,
+                PatchActionType.ADD,
+                PatchActionType.REMOVE)) {
             List<String> paragraphId = null == note.getParagraphIds() ? new ArrayList<String>() : note.getParagraphIds();
-            if (patchOperation.getOp().equals(PatchActionType.ADD.getActionKey()) &&
-                    !paragraphId.contains(patchOperation.getValue())) {
-                paragraphId.add(patchOperation.getValue());
-            } else if (patchOperation.getOp().equals(PatchActionType.REMOVE.getActionKey()) &&
-                    paragraphId.contains(patchOperation.getValue())) {
-                paragraphId.remove(patchOperation.getValue());
-            }
+            updateListFromPatchOperation(paragraphId, patchOperation);
             note.setParagraphIds(paragraphId);
         }
     }
 
     private void updateText(PatchOperation patchOperation, Note note) {
-        if (validatePatchOperationForNotes(patchOperation)
-                && patchOperation.getOp().equals(PatchActionType.REPLACE.getActionKey())) {
+        if (getValidator().validatePatchOperationForDomainObject(pathOfText, patchOperation, PatchActionType.REPLACE)) {
             note.setText(patchOperation.getValue());
         }
-    }
-
-    private boolean validatePatchOperationForUpdatingParagraphIds(PatchOperation patchOperation) {
-        boolean isOperationValid = patchOperation.getOp().equals(PatchActionType.ADD.getActionKey()) ||
-                patchOperation.getOp().equals(PatchActionType.REMOVE.getActionKey());
-        boolean isPathValid = patchOperation.getPath().equals(pathOfParagraphId);
-        boolean isValueValid = ObjectId.isValid(patchOperation.getValue());
-        return isOperationValid && isPathValid && isValueValid;
-    }
-
-    private boolean validatePatchOperationForNotes(PatchOperation patchOperation) {
-        boolean isOperationValid = patchOperation.getOp().equals(PatchActionType.REPLACE.getActionKey());
-        boolean isPathValid = patchOperation.getPath().equals(pathOfText);
-        return isOperationValid && isPathValid;
     }
 }

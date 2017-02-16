@@ -117,3 +117,13 @@ what can the user do to move away from a view?
 - search a view based on visual cues for the location of the content.
 -------------------------------------------------------------------------
 How would the display change based on the paragraph length?
+
+User        list of books
+Author      list of books
+Book        has paragraph ids but in a map
+Paragraph   -
+Notes       list of paragraphs (not supposed to be large)
+Comments    related to
+
+8680  5102  0678  755
+8680  5102  0678  748

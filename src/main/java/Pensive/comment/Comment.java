@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -20,6 +22,7 @@ public class Comment extends DomainObject {
     private int creationDate;
     private BookInfo bookInfo;
     private UserInfo userInfo;
+    private List<String> relatedTo;
 
     public Comment() {
         super();

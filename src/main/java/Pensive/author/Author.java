@@ -1,6 +1,5 @@
 package Pensive.author;
 
-import Pensive.book.Book;
 import Pensive.prototype.DomainObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +16,7 @@ public class Author extends DomainObject {
     private String firstName;
     private String careerDetails;
     private String educationBackground;
-    private List<Book> publications;
+    private List<String> bookIds;
 
     public String getFullName() {
         return new StringBuilder()

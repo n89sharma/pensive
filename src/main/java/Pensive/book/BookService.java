@@ -2,6 +2,7 @@ package Pensive.book;
 
 import Pensive.paragraph.Paragraph;
 import Pensive.paragraph.ParagraphRepository;
+import Pensive.prototype.PatchOperation;
 import Pensive.prototype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -92,5 +93,10 @@ public class BookService extends Service<Book, BookValidator, BookRepository> {
 
     private Paragraph saveParagraph(Paragraph paragraph) {
         return paragraphRepository.save(paragraph);
+    }
+
+    @Override
+    protected void updateDomainObjectForPatchOperation(Book domainObject, PatchOperation patchOperation) {
+
     }
 }

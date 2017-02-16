@@ -3,6 +3,7 @@ package Pensive.prototype;
 import lombok.Getter;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -40,17 +41,36 @@ public abstract class Service<
     }
 
     public void deleteDomainObject(String id) {
-        if (repository.exists(id)) {
+        if (validator.isValidForDelete(id) && repository.exists(id)) {
             repository.delete(id);
         }
     }
 
-    public boolean validatePatchOperation(PatchOperation patchOperation) {
-        return null != patchOperation.getOp() &&
-                null != patchOperation.getPath() &&
-                null != patchOperation.getValue() &&
-                !patchOperation.getOp().isEmpty() &&
-                !patchOperation.getValue().isEmpty() &&
-                !patchOperation.getPath().isEmpty();
+    public D updateDomainObject(String id, PatchOperation[] patchOperations) {
+        D domainObject = repository.findOne(id);
+        List<PatchOperation> patchOperationList = Arrays.asList(patchOperations);
+        if (!patchOperationList.isEmpty() && null != domainObject) {
+            for (PatchOperation patchOperation : patchOperations) {
+                if (validator.isPatchOperationValid(patchOperation)) {
+                    updateDomainObjectForPatchOperation(domainObject, patchOperation);
+                }
+            }
+        }
+        if (domainObject.getErrors().isEmpty()) {
+            repository.save(domainObject);
+        }
+        return domainObject;
+    }
+
+    protected abstract void updateDomainObjectForPatchOperation(D domainObject, PatchOperation patchOperation);
+
+    protected void updateListFromPatchOperation(List<String> ids, PatchOperation patchOperation) {
+        if (patchOperation.getOp().equals(PatchActionType.ADD.getActionKey()) &&
+                !ids.contains(patchOperation.getValue())) {
+            ids.add(patchOperation.getValue());
+        } else if (patchOperation.getOp().equals(PatchActionType.REMOVE.getActionKey()) &&
+                ids.contains(patchOperation.getValue())) {
+            ids.remove(patchOperation.getValue());
+        }
     }
 }

@@ -44,4 +44,9 @@ public abstract class Controller<
     public void deleteDomainObject(@PathVariable String domainObjectId) {
         service.deleteDomainObject(domainObjectId);
     }
+
+    @RequestMapping(value = "/{domainObjectId}", method = RequestMethod.PATCH)
+    public D updateDomainObject(@PathVariable String domainObjectId, @RequestBody PatchOperation[] patchOperations) {
+        return service.updateDomainObject(domainObjectId, patchOperations);
+    }
 }

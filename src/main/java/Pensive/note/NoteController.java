@@ -1,9 +1,9 @@
 package Pensive.note;
 
 import Pensive.prototype.Controller;
-import Pensive.prototype.PatchOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * ENDPOINT                                               HTTP METHOD  DESCRIPTION                                  IMPLEMENTED
@@ -24,8 +24,4 @@ public class NoteController extends Controller<Note, NoteValidator, NoteReposito
         super(noteService);
     }
 
-    @RequestMapping(value = "/{noteId}", method = RequestMethod.PATCH)
-    public Note updateNote(@PathVariable String noteId, @RequestBody PatchOperation[] patchOperations) {
-        return getService().updateNote(noteId, patchOperations);
-    }
 }

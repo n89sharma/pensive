@@ -1,4 +1,4 @@
-package Pensive.user;
+package Pensive.comment;
 
 import Pensive.prototype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users")
-public class UserController extends Controller<User, UserValidator, UserRepository, UserService> {
+@RequestMapping("/comments")
+public class CommentController extends Controller<Comment, CommentValidator, CommentRepository, CommentService> {
 
     @Autowired
-    public UserController(UserService userService) {
-        super(userService);
+    public CommentController(CommentService commentService) {
+        super(commentService);
     }
 }
