@@ -20,7 +20,7 @@ public class Note extends DomainObject {
     private String quoteText;
     private String noteTitle;
     private String text;
-    private boolean lockStatus;
+    private boolean locked;
     private Date creationDate;
     private Date lastEditDate;
     private NoteType typeOfNote;
