@@ -1,0 +1,26 @@
+[
+  {
+    "text": "this is a paragraph.",
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "id": null,
+    "errors": []
+  },
+  {
+    "text": "this is also a paragraph.",
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "id": null,
+    "errors": []
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "quoteText": "",
+    "noteTitle": "Don't you believe it",
+    "text": "Confirm this.",
+    "locked": false,
+    "creationDate": 1483246800000,
+    "lastEditDate": 1483246800000,
+    "typeOfNote": "QUESTION",
+    "userInfo": {
+      "id": 1,
+      "username": "sharmani"
+    },
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "paragraphIds": null,
+    "id": null,
+    "errors": []
+  },
+  {
+    "quoteText": "",
+    "noteTitle": "Interesting",
+    "text": "Good point.",
+    "locked": false,
+    "creationDate": 1483246800000,
+    "lastEditDate": 1483246800000,
+    "typeOfNote": "GENERAL_NOTE",
+    "userInfo": {
+      "id": 1,
+      "username": "sharmani"
+    },
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "paragraphIds": null,
+    "id": null,
+    "errors": []
+  }
+]

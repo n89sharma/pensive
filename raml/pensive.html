@@ -1,0 +1,2393 @@
+<!DOCTYPE HTML>
+<html>
+<head><title>Pensive API API documentation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="generator" content="https://github.com/raml2html/raml2html 3.0.0">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+
+  </script>
+  <style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+
+  </style>
+</head>
+<body data-spy="scroll" data-target="#sidebar">
+<div class="container">
+  <div class="row">
+    <div class="col-md-9" role="main">
+      <div class="page-header">
+        <h1>Pensive API API documentation
+          <small>version v1</small>
+        </h1>
+        <p>https://api.pensive.com/</p></div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 id="authors" class="panel-title">/authors</h3></div>
+        <div class="panel-body">
+          <div class="top-resource-description"><p>Collection of available authors in Jukebox.</p></div>
+          <div class="panel-group">
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_authors"><span class="parent"></span>/authors</a>
+                <span class="methods"><a href="#authors_get"><span class="badge badge_get">get</span></a> <a
+                        href="#authors_post"><span class="badge badge_post">post</span></a></span></h4></div>
+              <div id="panel_authors" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#authors_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of authors.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#authors_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new author to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="authors_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent"></span>/authors</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of authors.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#authors_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="authors_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "id": null,
+    "errors": [],
+    "lastName": "Sagan",
+    "firstName": "Carl",
+    "careerDetails": null,
+    "educationBackground": null,
+    "bookIds": null,
+    "fullName": "Carl Sagan"
+  },
+  {
+    "id": null,
+    "errors": [],
+    "lastName": "Card",
+    "firstName": "Orson",
+    "careerDetails": null,
+    "educationBackground": null,
+    "bookIds": null,
+    "fullName": "Orson Card"
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="authors_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent"></span>/authors</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new author to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#authors_post_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#authors_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="authors_post_request"><h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:author:Author",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "lastName" : {
+      "type" : "string"
+    },
+    "firstName" : {
+      "type" : "string"
+    },
+    "careerDetails" : {
+      "type" : "string"
+    },
+    "educationBackground" : {
+      "type" : "string"
+    },
+    "bookIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "fullName" : {
+      "type" : "string"
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "id" : null,
+  "errors" : [ ],
+  "lastName" : "Sagan",
+  "firstName" : "Carl",
+  "careerDetails" : null,
+  "educationBackground" : null,
+  "bookIds" : null,
+  "fullName" : "Carl Sagan"
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="authors_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The author has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_authors__authorName_"><span
+                      class="parent">/authors</span>/{authorName}</a> <span class="methods"><a
+                      href="#authors__authorName__get"><span class="badge badge_get">get</span></a> <a
+                      href="#authors__authorName__put"><span class="badge badge_put">put</span></a> <a
+                      href="#authors__authorName__delete"><span class="badge badge_delete">delete</span></a></span></h4>
+              </div>
+              <div id="panel_authors__authorName_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a author</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#authors__authorName__get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the author with authorId = {authorId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#authors__authorName__put'" class="list-group-item"><span
+                            class="badge badge_put">put</span>
+                      <div class="method_description"><p>author edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#authors__authorName__delete'" class="list-group-item"><span
+                            class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>author deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="authors__authorName__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/authors</span>/{authorName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the author with authorId = {authorId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#authors__authorName__get_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#authors__authorName__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="authors__authorName__get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>authorName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="authors__authorName__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "id" : null,
+  "errors" : [ ],
+  "lastName" : "Sagan",
+  "firstName" : "Carl",
+  "careerDetails" : null,
+  "educationBackground" : null,
+  "bookIds" : null,
+  "fullName" : "Carl Sagan"
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "author not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="authors__authorName__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/authors</span>/{authorName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>author edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#authors__authorName__put_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#authors__authorName__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="authors__authorName__put_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>authorName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="authors__authorName__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="authors__authorName__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/authors</span>/{authorName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>author deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#authors__authorName__delete_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#authors__authorName__delete_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="authors__authorName__delete_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>authorName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="authors__authorName__delete_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 id="users" class="panel-title">/users</h3></div>
+        <div class="panel-body">
+          <div class="top-resource-description"><p>Collection of available users in Jukebox.</p></div>
+          <div class="panel-group">
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_users"><span class="parent"></span>/users</a>
+                <span class="methods"><a href="#users_get"><span class="badge badge_get">get</span></a> <a
+                        href="#users_post"><span class="badge badge_post">post</span></a></span></h4></div>
+              <div id="panel_users" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#users_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of users.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#users_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new user to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent"></span>/users</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of users.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "username": "sharmani",
+    "legalName": "Nikhil Sharma",
+    "bookIds": null,
+    "id": null,
+    "errors": []
+  },
+  {
+    "username": "khawajah",
+    "legalName": "Hassan Khawaja",
+    "bookIds": null,
+    "id": null,
+    "errors": []
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent"></span>/users</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new user to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users_post_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#users_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users_post_request"><h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:user:User",
+  "properties" : {
+    "username" : {
+      "type" : "string"
+    },
+    "legalName" : {
+      "type" : "string"
+    },
+    "bookIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "username" : "sharmani",
+  "legalName" : "Nikhil Sharma",
+  "bookIds" : null,
+  "id" : null,
+  "errors" : [ ]
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="users_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The user has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_users__userId_"><span class="parent">/users</span>/{userId}</a>
+                <span class="methods"><a href="#users__userId__get"><span class="badge badge_get">get</span></a> <a
+                        href="#users__userId__put"><span class="badge badge_put">put</span></a> <a
+                        href="#users__userId__delete"><span class="badge badge_delete">delete</span></a></span></h4>
+              </div>
+              <div id="panel_users__userId_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a user</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#users__userId__get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the user with userId = {userId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#users__userId__put'" class="list-group-item"><span
+                            class="badge badge_put">put</span>
+                      <div class="method_description"><p>user edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#users__userId__delete'" class="list-group-item"><span
+                            class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>user deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/users</span>/{userId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the user with userId = {userId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__get_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#users__userId__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "username" : "sharmani",
+  "legalName" : "Nikhil Sharma",
+  "bookIds" : null,
+  "id" : null,
+  "errors" : [ ]
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "user not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/users</span>/{userId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>user edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__put_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#users__userId__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__put_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/users</span>/{userId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>user deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__delete_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#users__userId__delete_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__delete_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__delete_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_users__userId__books"><span
+                      class="parent">/users/{userId}</span>/books</a> <span class="methods"><a
+                      href="#users__userId__books_get"><span class="badge badge_get">get</span></a> <a
+                      href="#users__userId__books_post"><span class="badge badge_post">post</span></a></span></h4></div>
+              <div id="panel_users__userId__books" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Collection of available books in Jukebox.</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#users__userId__books_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of books.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#users__userId__books_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new book to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__books_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/users/{userId}</span>/books</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of books.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__books_get_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#users__userId__books_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__books_get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__books_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "id": null,
+    "errors": [],
+    "bookTitle": "Cosmos",
+    "summary": null,
+    "publisher": null,
+    "isbn": 0,
+    "chapters": {
+      "Introduction": []
+    }
+  },
+  {
+    "id": null,
+    "errors": [],
+    "bookTitle": "Ender&#39;s game",
+    "summary": null,
+    "publisher": null,
+    "isbn": 0,
+    "chapters": {
+      "Introduction": []
+    }
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__books_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent">/users/{userId}</span>/books</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new book to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__books_post_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#users__userId__books_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__books_post_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                          </ul>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:book:Book",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "bookTitle" : {
+      "type" : "string"
+    },
+    "summary" : {
+      "type" : "string"
+    },
+    "publisher" : {
+      "type" : "string"
+    },
+    "isbn" : {
+      "type" : "integer"
+    },
+    "chapters" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "type" : "array",
+        "items" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "id" : null,
+  "errors" : [ ],
+  "bookTitle" : "Cosmos",
+  "summary" : null,
+  "publisher" : null,
+  "isbn" : 0,
+  "chapters" : {
+    "Introduction" : [ ]
+  }
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="users__userId__books_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The book has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_users__userId__books__bookName_"><span
+                      class="parent">/users/{userId}/books</span>/{bookName}</a> <span class="methods"><a
+                      href="#users__userId__books__bookName__get"><span class="badge badge_get">get</span></a> <a
+                      href="#users__userId__books__bookName__put"><span class="badge badge_put">put</span></a> <a
+                      href="#users__userId__books__bookName__delete"><span class="badge badge_delete">delete</span></a></span>
+              </h4></div>
+              <div id="panel_users__userId__books__bookName_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a book</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#users__userId__books__bookName__get'"
+                         class="list-group-item"><span class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the book with bookId = {bookId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#users__userId__books__bookName__put'"
+                         class="list-group-item"><span class="badge badge_put">put</span>
+                      <div class="method_description"><p>book edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#users__userId__books__bookName__delete'"
+                         class="list-group-item"><span class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>book deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__books__bookName__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/users/{userId}/books</span>/{bookName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the book with bookId = {bookId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__books__bookName__get_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#users__userId__books__bookName__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__books__bookName__get_request"><h3>URI
+                          Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                            <li><strong>bookName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__books__bookName__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "id" : null,
+  "errors" : [ ],
+  "bookTitle" : "Cosmos",
+  "summary" : null,
+  "publisher" : null,
+  "isbn" : 0,
+  "chapters" : {
+    "Introduction" : [ ]
+  }
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "book not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__books__bookName__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/users/{userId}/books</span>/{bookName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>book edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__books__bookName__put_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#users__userId__books__bookName__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__books__bookName__put_request"><h3>URI
+                          Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                            <li><strong>bookName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__books__bookName__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="users__userId__books__bookName__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/users/{userId}/books</span>/{bookName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>book deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#users__userId__books__bookName__delete_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#users__userId__books__bookName__delete_response" data-toggle="tab">Response</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="users__userId__books__bookName__delete_request"><h3>URI
+                          Parameters</h3>
+                          <ul>
+                            <li><strong>userId</strong>: <em>required (string)</em></li>
+                            <li><strong>bookName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="users__userId__books__bookName__delete_response"><h2>HTTP status code
+                          <a href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 id="books" class="panel-title">/books</h3></div>
+        <div class="panel-body">
+          <div class="top-resource-description"><p>Collection of available books in Jukebox.</p></div>
+          <div class="panel-group">
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_books"><span class="parent"></span>/books</a>
+                <span class="methods"><a href="#books_get"><span class="badge badge_get">get</span></a> <a
+                        href="#books_post"><span class="badge badge_post">post</span></a></span></h4></div>
+              <div id="panel_books" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#books_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of books.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#books_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new book to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="books_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent"></span>/books</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of books.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#books_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="books_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "id": null,
+    "errors": [],
+    "bookTitle": "Cosmos",
+    "summary": null,
+    "publisher": null,
+    "isbn": 0,
+    "chapters": {
+      "Introduction": []
+    }
+  },
+  {
+    "id": null,
+    "errors": [],
+    "bookTitle": "Ender&#39;s game",
+    "summary": null,
+    "publisher": null,
+    "isbn": 0,
+    "chapters": {
+      "Introduction": []
+    }
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="books_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent"></span>/books</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new book to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#books_post_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#books_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="books_post_request"><h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:book:Book",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "bookTitle" : {
+      "type" : "string"
+    },
+    "summary" : {
+      "type" : "string"
+    },
+    "publisher" : {
+      "type" : "string"
+    },
+    "isbn" : {
+      "type" : "integer"
+    },
+    "chapters" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "type" : "array",
+        "items" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "id" : null,
+  "errors" : [ ],
+  "bookTitle" : "Cosmos",
+  "summary" : null,
+  "publisher" : null,
+  "isbn" : 0,
+  "chapters" : {
+    "Introduction" : [ ]
+  }
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="books_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The book has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_books__bookName_"><span class="parent">/books</span>/{bookName}</a>
+                <span class="methods"><a href="#books__bookName__get"><span class="badge badge_get">get</span></a> <a
+                        href="#books__bookName__put"><span class="badge badge_put">put</span></a> <a
+                        href="#books__bookName__delete"><span class="badge badge_delete">delete</span></a></span></h4>
+              </div>
+              <div id="panel_books__bookName_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a book</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#books__bookName__get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the book with bookId = {bookId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#books__bookName__put'" class="list-group-item"><span
+                            class="badge badge_put">put</span>
+                      <div class="method_description"><p>book edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#books__bookName__delete'" class="list-group-item"><span
+                            class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>book deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="books__bookName__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/books</span>/{bookName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the book with bookId = {bookId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#books__bookName__get_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#books__bookName__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="books__bookName__get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>bookName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="books__bookName__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "id" : null,
+  "errors" : [ ],
+  "bookTitle" : "Cosmos",
+  "summary" : null,
+  "publisher" : null,
+  "isbn" : 0,
+  "chapters" : {
+    "Introduction" : [ ]
+  }
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "book not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="books__bookName__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/books</span>/{bookName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>book edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#books__bookName__put_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#books__bookName__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="books__bookName__put_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>bookName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="books__bookName__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="books__bookName__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/books</span>/{bookName}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>book deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#books__bookName__delete_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#books__bookName__delete_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="books__bookName__delete_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>bookName</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="books__bookName__delete_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 id="notes" class="panel-title">/notes</h3></div>
+        <div class="panel-body">
+          <div class="top-resource-description"><p>Collection of available notes in Jukebox.</p></div>
+          <div class="panel-group">
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_notes"><span class="parent"></span>/notes</a>
+                <span class="methods"><a href="#notes_get"><span class="badge badge_get">get</span></a> <a
+                        href="#notes_post"><span class="badge badge_post">post</span></a></span></h4></div>
+              <div id="panel_notes" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#notes_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of notes.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#notes_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new note to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="notes_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent"></span>/notes</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of notes.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#notes_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="notes_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "quoteText": "",
+    "noteTitle": "Don&#39;t you believe it",
+    "text": "Confirm this.",
+    "locked": false,
+    "creationDate": 1483246800000,
+    "lastEditDate": 1483246800000,
+    "typeOfNote": "QUESTION",
+    "userInfo": {
+      "id": 1,
+      "username": "sharmani"
+    },
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "paragraphIds": null,
+    "id": null,
+    "errors": []
+  },
+  {
+    "quoteText": "",
+    "noteTitle": "Interesting",
+    "text": "Good point.",
+    "locked": false,
+    "creationDate": 1483246800000,
+    "lastEditDate": 1483246800000,
+    "typeOfNote": "GENERAL_NOTE",
+    "userInfo": {
+      "id": 1,
+      "username": "sharmani"
+    },
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "paragraphIds": null,
+    "id": null,
+    "errors": []
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="notes_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent"></span>/notes</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new note to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#notes_post_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#notes_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="notes_post_request"><h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:note:Note",
+  "properties" : {
+    "quoteText" : {
+      "type" : "string"
+    },
+    "noteTitle" : {
+      "type" : "string"
+    },
+    "text" : {
+      "type" : "string"
+    },
+    "locked" : {
+      "type" : "boolean"
+    },
+    "creationDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "lastEditDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "typeOfNote" : {
+      "type" : "string",
+      "enum" : [ "GENERAL_NOTE", "QUESTION", "ANSWER", "CONCLUSION", "REASON", "ARGUMENT_INTRODUCTION", "ARGUMENT_SUMMARY" ]
+    },
+    "userInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:user:UserInfo",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "username" : {
+          "type" : "string"
+        }
+      }
+    },
+    "bookInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:book:BookInfo",
+      "properties" : {
+        "bookId" : {
+          "type" : "integer"
+        },
+        "authorFirstName" : {
+          "type" : "string"
+        },
+        "authorLastName" : {
+          "type" : "string"
+        },
+        "bookTitle" : {
+          "type" : "string"
+        },
+        "chapterTitle" : {
+          "type" : "string"
+        }
+      }
+    },
+    "paragraphIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "quoteText" : "",
+  "noteTitle" : "Don&#39;t you believe it",
+  "text" : "Confirm this.",
+  "locked" : false,
+  "creationDate" : 1483246800000,
+  "lastEditDate" : 1483246800000,
+  "typeOfNote" : "QUESTION",
+  "userInfo" : {
+    "id" : 1,
+    "username" : "sharmani"
+  },
+  "bookInfo" : {
+    "bookId" : 1,
+    "authorFirstName" : null,
+    "authorLastName" : null,
+    "bookTitle" : "Cosmos",
+    "chapterTitle" : "Introduction"
+  },
+  "paragraphIds" : null,
+  "id" : null,
+  "errors" : [ ]
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="notes_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The note has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_notes__noteId_"><span class="parent">/notes</span>/{noteId}</a>
+                <span class="methods"><a href="#notes__noteId__get"><span class="badge badge_get">get</span></a> <a
+                        href="#notes__noteId__put"><span class="badge badge_put">put</span></a> <a
+                        href="#notes__noteId__delete"><span class="badge badge_delete">delete</span></a></span></h4>
+              </div>
+              <div id="panel_notes__noteId_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a note</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#notes__noteId__get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the note with noteId = {noteId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#notes__noteId__put'" class="list-group-item"><span
+                            class="badge badge_put">put</span>
+                      <div class="method_description"><p>note edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#notes__noteId__delete'" class="list-group-item"><span
+                            class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>note deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="notes__noteId__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/notes</span>/{noteId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the note with noteId = {noteId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#notes__noteId__get_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#notes__noteId__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="notes__noteId__get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>noteId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="notes__noteId__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "quoteText" : "",
+  "noteTitle" : "Don&#39;t you believe it",
+  "text" : "Confirm this.",
+  "locked" : false,
+  "creationDate" : 1483246800000,
+  "lastEditDate" : 1483246800000,
+  "typeOfNote" : "QUESTION",
+  "userInfo" : {
+    "id" : 1,
+    "username" : "sharmani"
+  },
+  "bookInfo" : {
+    "bookId" : 1,
+    "authorFirstName" : null,
+    "authorLastName" : null,
+    "bookTitle" : "Cosmos",
+    "chapterTitle" : "Introduction"
+  },
+  "paragraphIds" : null,
+  "id" : null,
+  "errors" : [ ]
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "note not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="notes__noteId__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/notes</span>/{noteId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>note edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#notes__noteId__put_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#notes__noteId__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="notes__noteId__put_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>noteId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="notes__noteId__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="notes__noteId__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/notes</span>/{noteId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>note deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#notes__noteId__delete_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#notes__noteId__delete_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="notes__noteId__delete_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>noteId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="notes__noteId__delete_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 id="comments" class="panel-title">/comments</h3></div>
+        <div class="panel-body">
+          <div class="top-resource-description"><p>Collection of available comments in Jukebox.</p></div>
+          <div class="panel-group">
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_comments"><span class="parent"></span>/comments</a>
+                <span class="methods"><a href="#comments_get"><span class="badge badge_get">get</span></a> <a
+                        href="#comments_post"><span class="badge badge_post">post</span></a></span></h4></div>
+              <div id="panel_comments" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#comments_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of comments.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#comments_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new comment to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="comments_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent"></span>/comments</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of comments.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#comments_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="comments_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "parentId": 1,
+    "text": "this is a comment",
+    "lastEditDate": 1483246800000,
+    "creationDate": 1483246800000,
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "userInfo": {
+      "id": 1,
+      "username": "sharmani"
+    },
+    "relatedTo": null,
+    "id": null,
+    "errors": []
+  },
+  {
+    "parentId": 2,
+    "text": "this is also a comment",
+    "lastEditDate": 1483246800000,
+    "creationDate": 1483246800000,
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "userInfo": {
+      "id": 1,
+      "username": "sharmani"
+    },
+    "relatedTo": null,
+    "id": null,
+    "errors": []
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="comments_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent"></span>/comments</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new comment to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#comments_post_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#comments_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="comments_post_request"><h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:comment:Comment",
+  "properties" : {
+    "parentId" : {
+      "type" : "integer"
+    },
+    "text" : {
+      "type" : "string"
+    },
+    "lastEditDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "creationDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "bookInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:book:BookInfo",
+      "properties" : {
+        "bookId" : {
+          "type" : "integer"
+        },
+        "authorFirstName" : {
+          "type" : "string"
+        },
+        "authorLastName" : {
+          "type" : "string"
+        },
+        "bookTitle" : {
+          "type" : "string"
+        },
+        "chapterTitle" : {
+          "type" : "string"
+        }
+      }
+    },
+    "userInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:user:UserInfo",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "username" : {
+          "type" : "string"
+        }
+      }
+    },
+    "relatedTo" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "parentId" : 1,
+  "text" : "this is a comment",
+  "lastEditDate" : 1483246800000,
+  "creationDate" : 1483246800000,
+  "bookInfo" : {
+    "bookId" : 1,
+    "authorFirstName" : null,
+    "authorLastName" : null,
+    "bookTitle" : "Cosmos",
+    "chapterTitle" : "Introduction"
+  },
+  "userInfo" : {
+    "id" : 1,
+    "username" : "sharmani"
+  },
+  "relatedTo" : null,
+  "id" : null,
+  "errors" : [ ]
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="comments_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The comment has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_comments__commentId_"><span
+                      class="parent">/comments</span>/{commentId}</a> <span class="methods"><a
+                      href="#comments__commentId__get"><span class="badge badge_get">get</span></a> <a
+                      href="#comments__commentId__put"><span class="badge badge_put">put</span></a> <a
+                      href="#comments__commentId__delete"><span class="badge badge_delete">delete</span></a></span></h4>
+              </div>
+              <div id="panel_comments__commentId_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a comment</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#comments__commentId__get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the comment with commentId = {commentId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#comments__commentId__put'" class="list-group-item"><span
+                            class="badge badge_put">put</span>
+                      <div class="method_description"><p>comment edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#comments__commentId__delete'" class="list-group-item"><span
+                            class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>comment deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="comments__commentId__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/comments</span>/{commentId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the comment with commentId = {commentId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#comments__commentId__get_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#comments__commentId__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="comments__commentId__get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>commentId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="comments__commentId__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "parentId" : 1,
+  "text" : "this is a comment",
+  "lastEditDate" : 1483246800000,
+  "creationDate" : 1483246800000,
+  "bookInfo" : {
+    "bookId" : 1,
+    "authorFirstName" : null,
+    "authorLastName" : null,
+    "bookTitle" : "Cosmos",
+    "chapterTitle" : "Introduction"
+  },
+  "userInfo" : {
+    "id" : 1,
+    "username" : "sharmani"
+  },
+  "relatedTo" : null,
+  "id" : null,
+  "errors" : [ ]
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "comment not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="comments__commentId__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/comments</span>/{commentId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>comment edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#comments__commentId__put_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#comments__commentId__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="comments__commentId__put_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>commentId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="comments__commentId__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="comments__commentId__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/comments</span>/{commentId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>comment deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#comments__commentId__delete_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#comments__commentId__delete_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="comments__commentId__delete_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>commentId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="comments__commentId__delete_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 id="paragraphs" class="panel-title">/paragraphs</h3></div>
+        <div class="panel-body">
+          <div class="top-resource-description"><p>Collection of available paragraphs in Jukebox.</p></div>
+          <div class="panel-group">
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_paragraphs"><span
+                      class="parent"></span>/paragraphs</a> <span class="methods"><a href="#paragraphs_get"><span
+                      class="badge badge_get">get</span></a> <a href="#paragraphs_post"><span class="badge badge_post">post</span></a></span>
+              </h4></div>
+              <div id="panel_paragraphs" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#paragraphs_get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get a list of paragraphs.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#paragraphs_post'" class="list-group-item"><span
+                            class="badge badge_post">post</span>
+                      <div class="method_description"><p>Add a new paragraph to Jukebox.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="paragraphs_get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent"></span>/paragraphs</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get a list of paragraphs.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#paragraphs_get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="paragraphs_get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>[
+  {
+    "text": "this is a paragraph.",
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "id": null,
+    "errors": []
+  },
+  {
+    "text": "this is also a paragraph.",
+    "bookInfo": {
+      "bookId": 1,
+      "authorFirstName": null,
+      "authorLastName": null,
+      "bookTitle": "Cosmos",
+      "chapterTitle": "Introduction"
+    },
+    "id": null,
+    "errors": []
+  }
+]
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="paragraphs_post">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span
+                              class="parent"></span>/paragraphs</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Add a new paragraph to Jukebox.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#paragraphs_post_request" data-toggle="tab">Request</a></li>
+                        <li><a href="#paragraphs_post_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="paragraphs_post_request"><h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Schema</strong>:</p>
+                          <pre><code>{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:paragraph:Paragraph",
+  "properties" : {
+    "text" : {
+      "type" : "string"
+    },
+    "bookInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:book:BookInfo",
+      "properties" : {
+        "bookId" : {
+          "type" : "integer"
+        },
+        "authorFirstName" : {
+          "type" : "string"
+        },
+        "authorLastName" : {
+          "type" : "string"
+        },
+        "bookTitle" : {
+          "type" : "string"
+        },
+        "chapterTitle" : {
+          "type" : "string"
+        }
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}
+</code></pre>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "text": "this is a paragraph.",
+  "bookInfo": {
+    "bookId": 1,
+    "authorFirstName": null,
+    "authorLastName": null,
+    "bookTitle": "Cosmos",
+    "chapterTitle": "Introduction"
+  },
+  "id": null,
+  "errors": []
+}
+</code></pre>
+                        </div>
+                        <div class="tab-pane" id="paragraphs_post_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{ "message": "The paragraph has been properly entered" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-white">
+              <div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse"
+                                                                    href="#panel_paragraphs__paragraphId_"><span
+                      class="parent">/paragraphs</span>/{paragraphId}</a> <span class="methods"><a
+                      href="#paragraphs__paragraphId__get"><span class="badge badge_get">get</span></a> <a
+                      href="#paragraphs__paragraphId__put"><span class="badge badge_put">put</span></a> <a
+                      href="#paragraphs__paragraphId__delete"><span class="badge badge_delete">delete</span></a></span>
+              </h4></div>
+              <div id="panel_paragraphs__paragraphId_" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="resource-description"><p>Entity representing a paragraph</p></div>
+                  <div class="list-group">
+                    <div onclick="window.location.href = '#paragraphs__paragraphId__get'" class="list-group-item"><span
+                            class="badge badge_get">get</span>
+                      <div class="method_description"><p>Get the paragraph with paragraphId = {paragraphId}</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#paragraphs__paragraphId__put'" class="list-group-item"><span
+                            class="badge badge_put">put</span>
+                      <div class="method_description"><p>paragraph edited.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div onclick="window.location.href = '#paragraphs__paragraphId__delete'" class="list-group-item">
+                      <span class="badge badge_delete">delete</span>
+                      <div class="method_description"><p>paragraph deleted.</p></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="paragraphs__paragraphId__get">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span
+                              class="parent">/paragraphs</span>/{paragraphId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>Get the paragraph with paragraphId = {paragraphId}</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#paragraphs__paragraphId__get_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#paragraphs__paragraphId__get_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="paragraphs__paragraphId__get_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>paragraphId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="paragraphs__paragraphId__get_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{
+  "text": "this is a paragraph.",
+  "bookInfo": {
+    "bookId": 1,
+    "authorFirstName": null,
+    "authorLastName": null,
+    "bookTitle": "Cosmos",
+    "chapterTitle": "Introduction"
+  },
+  "id": null,
+  "errors": []
+}
+</code></pre>
+                          <h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2>
+                          <h3>Body</h3>
+                          <p><strong>Type: application/json</strong></p>
+                          <p><strong>Example</strong>:</p>
+                          <pre><code>{"message": "paragraph not found" }
+</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="paragraphs__paragraphId__put">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span
+                              class="parent">/paragraphs</span>/{paragraphId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>paragraph edited.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#paragraphs__paragraphId__put_request" data-toggle="tab">Request</a>
+                        </li>
+                        <li><a href="#paragraphs__paragraphId__put_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="paragraphs__paragraphId__put_request"><h3>URI Parameters</h3>
+                          <ul>
+                            <li><strong>paragraphId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="paragraphs__paragraphId__put_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/200" target="_blank">200</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" tabindex="0" id="paragraphs__paragraphId__delete">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span
+                              class="parent">/paragraphs</span>/{paragraphId}</h4></div>
+                    <div class="modal-body">
+                      <div class="alert alert-info"><p>paragraph deleted.</p></div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#paragraphs__paragraphId__delete_request"
+                                              data-toggle="tab">Request</a></li>
+                        <li><a href="#paragraphs__paragraphId__delete_response" data-toggle="tab">Response</a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="paragraphs__paragraphId__delete_request"><h3>URI
+                          Parameters</h3>
+                          <ul>
+                            <li><strong>paragraphId</strong>: <em>required (string)</em></li>
+                          </ul>
+                        </div>
+                        <div class="tab-pane" id="paragraphs__paragraphId__delete_response"><h2>HTTP status code <a
+                                href="http://httpstatus.es/204" target="_blank">204</a></h2></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div id="sidebar" class="hidden-print affix" role="complementary">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#authors">/authors</a></li>
+          <li><a href="#users">/users</a></li>
+          <li><a href="#books">/books</a></li>
+          <li><a href="#notes">/notes</a></li>
+          <li><a href="#comments">/comments</a></li>
+          <li><a href="#paragraphs">/paragraphs</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

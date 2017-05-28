@@ -25,7 +25,10 @@ import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RamlComponents {
 
@@ -59,8 +62,7 @@ public class RamlComponents {
                         dateFormat.parse("20170101"),
                         bookInfo,
                         userInfo,
-                        null
-                )));
+                        null)));
         domainFileList.add(DefinitionBundle.class, Arrays.asList(new DefinitionBundle("a definition")));
         domainFileList.add(Note.class, Arrays.asList(
                 new Note(
@@ -84,8 +86,7 @@ public class RamlComponents {
                         NoteType.GENERAL_NOTE,
                         userInfo,
                         bookInfo,
-                        null
-                )));
+                        null)));
         domainFileList.add(Paragraph.class, Arrays.asList(
                 new Paragraph("this is a paragraph.", bookInfo),
                 new Paragraph("this is also a paragraph.", bookInfo)));
@@ -93,19 +94,32 @@ public class RamlComponents {
                 new User("sharmani", "Nikhil Sharma", null),
                 new User("khawajah", "Hassan Khawaja", null)));
 
-
         domainFileList.getDomainFileInfos()
                 .entrySet()
-                .forEach(s -> generateFiles(s.getValue().fileName, s.getValue().jsonSchema, s.getValue().jsonExamples));
+                .forEach(s -> generateFiles(
+                        s.getValue().fileName,
+                        s.getValue().jsonSchema,
+                        s.getValue().jsonItemExample,
+                        s.getValue().jsonCollectionExample));
 
     }
 
-    private void generateFiles(String fileName, String jsonSchema, List<String> jsonExamples) {
+    private void generateFiles(
+            String fileName,
+            String jsonSchema,
+            String jsonItemExample,
+            String jsonCollectionExample) {
         try {
             String schemaFilePath = "/Users/nik/Documents/development/pensive/raml/schemas/" + fileName + ".schema";
-            String exampleFilePath = "/Users/nik/Documents/development/pensive/raml/examples/" + fileName + ".json";
+            String itemExampleFilePath = "/Users/nik/Documents/development/pensive/raml/examples/" + fileName + ".json";
+            String collectionExampleFilePath = "/Users/nik/Documents/development/pensive/raml/examples/" + fileName +
+                    "s.json";
             Files.write(Paths.get(schemaFilePath), jsonSchema.getBytes(), StandardOpenOption.CREATE);
-            Files.write(Paths.get(exampleFilePath), jsonExamples.get(0).getBytes(), StandardOpenOption.CREATE);
+            Files.write(Paths.get(itemExampleFilePath), jsonItemExample.getBytes(), StandardOpenOption.CREATE);
+            Files.write(Paths.get(
+                    collectionExampleFilePath),
+                    jsonCollectionExample.getBytes(),
+                    StandardOpenOption.CREATE);
         } catch (IOException ioException) {
             System.out.println(ioException);
         }
@@ -117,15 +131,12 @@ public class RamlComponents {
         Map<Class, DomainFileInfo> domainFileInfos = new HashMap<>();
 
         public void add(Class domainClass, List<Object> examples) throws JsonProcessingException {
-            List<String> exampleStrings = new ArrayList<>();
-            for (Object example : examples) {
-                objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(example);
-            }
             domainFileInfos.put(domainClass, new DomainFileInfo(
                     domainClass.getSimpleName(),
                     objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(
                             jsonSchemaGenerator.generateSchema(domainClass)),
-                    exampleStrings));
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(examples.get(0)),
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(examples)));
         }
     }
 
@@ -133,6 +144,7 @@ public class RamlComponents {
     private class DomainFileInfo {
         private String fileName;
         private String jsonSchema;
-        private List<String> jsonExamples;
+        private String jsonItemExample;
+        private String jsonCollectionExample;
     }
 }

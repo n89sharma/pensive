@@ -1,0 +1,24 @@
+[
+  {
+    "id": null,
+    "errors": [],
+    "bookTitle": "Cosmos",
+    "summary": null,
+    "publisher": null,
+    "isbn": 0,
+    "chapters": {
+      "Introduction": []
+    }
+  },
+  {
+    "id": null,
+    "errors": [],
+    "bookTitle": "Ender's game",
+    "summary": null,
+    "publisher": null,
+    "isbn": 0,
+    "chapters": {
+      "Introduction": []
+    }
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": null,
+    "errors": [],
+    "lastName": "Sagan",
+    "firstName": "Carl",
+    "careerDetails": null,
+    "educationBackground": null,
+    "bookIds": null,
+    "fullName": "Carl Sagan"
+  },
+  {
+    "id": null,
+    "errors": [],
+    "lastName": "Card",
+    "firstName": "Orson",
+    "careerDetails": null,
+    "educationBackground": null,
+    "bookIds": null,
+    "fullName": "Orson Card"
+  }
+]
