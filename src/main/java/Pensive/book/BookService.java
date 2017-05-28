@@ -81,7 +81,7 @@ public class BookService extends Service<Book, BookValidator, BookRepository> {
             paragraphList.add(paragraph.getId());
         }
         book.getChapters().put(chapterTitle, paragraphList);
-        paragraph.setBookInfo(new BookInfo(book.getId(), book.getBookTitle(), chapterTitle));
+        paragraph.setBookInfo(new BookInfo(Integer.parseInt(book.getId()), book.getBookTitle(), chapterTitle));
         getRepository().save(book);
         paragraphRepository.save(paragraph);
     }

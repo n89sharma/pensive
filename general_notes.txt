@@ -1,13 +1,7 @@
 * Philosophy
-Why can I not remember the books that I read?
-I cannot remember the books that I read for the following reasons:
-(1) My english skills are lacking, therefore I cannot understand the point the author is trying to convey.
-(2) I do not read actively; I do not question what the author claims; a book turns into a lecture rather than a
-    conversation. Without personal reflection any new information is left in short term memory.
-(3) I do not think critically while I read. If the conclusions and reasoning of every author is taken at face value then
-    as a reader you are likely to be convinced by multiple contradictory claims.
-(4) The topic of the book does not interest me or I cannot relate to the topic.
-(5)
+(1) English
+(2) Active reading. Asking questions
+(3) Critical thinking. Question the author
 
 There are two steps for better comprehension:
 (1) Know exactly what the author is trying to convey.
@@ -51,49 +45,6 @@ There are two steps for better comprehension:
 - As a pensive user I want to customize how much text appears on the screen from a book.
 - As an admin pensive user I want to be able to select a pdf and transfer all its text into the database under a book.
 - As an admin pensive user I want to point to a link and parse all the text to be added in the database for future use.
-
-
-* endpoints
-/pensive/api/v1/
-
-/authors                                                GET         get all the authors
-/authors                                                POST        create a new author
-/authors/sagan-carl                                     DELETE      delete an author
-/authors/sagan-carl                                     PUT         update the book list for an author
-
-/users                                                  GET         get all the users
-/users                                                  POST        create a new user
-/users/sharmani                                         DELETE      delete a user
-
-/users/sharmani/books                                   GET         get all the books in the user's bookshelf
-/users/sharmani/books                                   POST        add a new book in the user's bookshelf
-/users/sharmani/books/cosmos                            DELETE      delete a book from the user's bookshelf
-
-/users/sharmani/comments                                GET         get all the comments from the user
-/users/sharmani/notes                                   GET         get all the notes from the user
-
-/books[?author=sagan]                                   GET         get all the books with a specific criteria
-/books                                                  POST        create a new book
-/books/cosmos                                           DELETE      delete a book
-
-/books/cosmos/chapters                                  GET         get all the chapters in the book
-/books/cosmos/chapters                                  POST        add a new chapter in the book
-/books/cosmos/chapters/intro                            DELETE      delete a chapter from a book
-
-/books/cosmos/chapters/intro/paragraphs                 GET         get all the paragraphs in a chapter
-/books/cosmos/chapters/intro/paragraphs                 POST        add a new paragraph to a chapter
-/books/cosmos/chapters/intro/paragraphs/paragraphId     PUT         update a paragraph
-/books/cosmos/chapters/intro/paragraphs/paragraphId     DELETE      delete a paragraph
-
-/notes[?users=sharmani]                                 GET         get all the notes with a specific criteria
-/notes                                                  POST        create a note
-/notes/noteId                                           PUT         update a note
-/notes/noteId                                           DELETE      delete a note
-
-/comments[?users=sharmani]                              GET         get all the comments with a specific criteria
-/comments                                               POST        create a comment
-/comments/commentId                                     PUT         update a comment
-/comments/commentId                                     DELETE      delete a comment
 
 -------------------------------------------------------------------------
 Should paragraphs have a business key that the user can refer to it by? book, chapter, section, number, tags?

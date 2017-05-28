@@ -1,7 +1,13 @@
 {
-  "author": "Carl Sagan",
-  "book": "Cosmos",
-  "chapter": "The shores of the cosmic ocean",
-  "section": "",
-  "text": "The Cosmos is all that is or ever was or ever will be. Our feeblest contemplations of the Cosmos stir us - there is a tingling in the spine, a catch in the voice, a faint sensation, as if a distant memory, of falling from a height. We know we are approaching the greatest of mysteries."
+  "text": "this is a paragraph.",
+  "bookInfo": {
+    "bookId": 1,
+    "authorFirstName": null,
+    "authorLastName": null,
+    "bookTitle": "Cosmos",
+    "chapterTitle": "Introduction"
+  },
+  "id": null,
+  "errors": []
+}re is a tingling in the spine, a catch in the voice, a faint sensation, as if a distant memory, of falling from a height. We know we are approaching the greatest of mysteries."
 }

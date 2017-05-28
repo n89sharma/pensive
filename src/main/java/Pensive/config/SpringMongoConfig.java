@@ -1,4 +1,4 @@
-package Pensive.configs;
+package Pensive.config;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;

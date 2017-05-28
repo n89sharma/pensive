@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,10 +17,10 @@ import java.util.List;
 @Document(collection = "comments")
 public class Comment extends DomainObject {
 
-    private String parentId;
+    private int parentId;
     private String text;
-    private int lastEditDate;
-    private int creationDate;
+    private Date lastEditDate;
+    private Date creationDate;
     private BookInfo bookInfo;
     private UserInfo userInfo;
     private List<String> relatedTo;

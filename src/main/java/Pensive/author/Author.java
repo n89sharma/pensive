@@ -29,4 +29,9 @@ public class Author extends DomainObject {
     public Author() {
         super();
     }
+
+    public Author(String firstName, String lastName) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
 }
