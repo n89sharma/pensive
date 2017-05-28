@@ -1,0 +1,20 @@
+{
+  "parentId" : 1,
+  "text" : "this is a comment",
+  "lastEditDate" : 1483246800000,
+  "creationDate" : 1483246800000,
+  "bookInfo" : {
+    "bookId" : 1,
+    "authorFirstName" : null,
+    "authorLastName" : null,
+    "bookTitle" : "Cosmos",
+    "chapterTitle" : "Introduction"
+  },
+  "userInfo" : {
+    "id" : 1,
+    "username" : "sharmani"
+  },
+  "relatedTo" : null,
+  "id" : null,
+  "errors" : [ ]
+}

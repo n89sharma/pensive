@@ -1,0 +1,9 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:definitions:DefinitionBundle",
+  "properties" : {
+    "deinition" : {
+      "type" : "string"
+    }
+  }
+}

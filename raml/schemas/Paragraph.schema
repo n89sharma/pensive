@@ -1,0 +1,39 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:paragraph:Paragraph",
+  "properties" : {
+    "text" : {
+      "type" : "string"
+    },
+    "bookInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:book:BookInfo",
+      "properties" : {
+        "bookId" : {
+          "type" : "integer"
+        },
+        "authorFirstName" : {
+          "type" : "string"
+        },
+        "authorLastName" : {
+          "type" : "string"
+        },
+        "bookTitle" : {
+          "type" : "string"
+        },
+        "chapterTitle" : {
+          "type" : "string"
+        }
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}

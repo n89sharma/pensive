@@ -1,0 +1,27 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:user:User",
+  "properties" : {
+    "username" : {
+      "type" : "string"
+    },
+    "legalName" : {
+      "type" : "string"
+    },
+    "bookIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}

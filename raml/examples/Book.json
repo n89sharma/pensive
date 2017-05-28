@@ -1,0 +1,11 @@
+{
+  "id" : null,
+  "errors" : [ ],
+  "bookTitle" : "Cosmos",
+  "summary" : null,
+  "publisher" : null,
+  "isbn" : 0,
+  "chapters" : {
+    "Introduction" : [ ]
+  }
+}

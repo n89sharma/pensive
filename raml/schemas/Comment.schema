@@ -1,0 +1,68 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:comment:Comment",
+  "properties" : {
+    "parentId" : {
+      "type" : "integer"
+    },
+    "text" : {
+      "type" : "string"
+    },
+    "lastEditDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "creationDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "bookInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:book:BookInfo",
+      "properties" : {
+        "bookId" : {
+          "type" : "integer"
+        },
+        "authorFirstName" : {
+          "type" : "string"
+        },
+        "authorLastName" : {
+          "type" : "string"
+        },
+        "bookTitle" : {
+          "type" : "string"
+        },
+        "chapterTitle" : {
+          "type" : "string"
+        }
+      }
+    },
+    "userInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:user:UserInfo",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "username" : {
+          "type" : "string"
+        }
+      }
+    },
+    "relatedTo" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}

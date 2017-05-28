@@ -1,0 +1,36 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:author:Author",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "lastName" : {
+      "type" : "string"
+    },
+    "firstName" : {
+      "type" : "string"
+    },
+    "careerDetails" : {
+      "type" : "string"
+    },
+    "educationBackground" : {
+      "type" : "string"
+    },
+    "bookIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "fullName" : {
+      "type" : "string"
+    }
+  }
+}

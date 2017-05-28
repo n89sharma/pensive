@@ -1,0 +1,36 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:book:Book",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "bookTitle" : {
+      "type" : "string"
+    },
+    "summary" : {
+      "type" : "string"
+    },
+    "publisher" : {
+      "type" : "string"
+    },
+    "isbn" : {
+      "type" : "integer"
+    },
+    "chapters" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "type" : "array",
+        "items" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

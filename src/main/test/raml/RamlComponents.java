@@ -25,8 +25,7 @@ import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RamlComponents {
 
@@ -40,44 +39,73 @@ public class RamlComponents {
         UserInfo userInfo = new UserInfo(1, "sharmani");
 
         DomainFileList domainFileList = new DomainFileList();
-        domainFileList.add(Author.class, new Author("Carl", "Sagan"));
-        domainFileList.add(Book.class, new Book("Cosmos", "Introduction"));
-        domainFileList.add(Comment.class, new Comment(
-                1,
-                "this is a comment",
-                dateFormat.parse("20170101"),
-                dateFormat.parse("20170101"),
-                bookInfo,
-                userInfo,
-                null));
-        domainFileList.add(DefinitionBundle.class, new DefinitionBundle("a definition"));
-        domainFileList.add(Note.class, new Note(
-                "",
-                "Don't you believe it",
-                "Confirm this.",
-                false,
-                dateFormat.parse("20170101"),
-                dateFormat.parse("20170101"),
-                NoteType.QUESTION,
-                userInfo,
-                bookInfo,
-                null));
-        domainFileList.add(Paragraph.class, new Paragraph("this is a paragraph.", bookInfo));
-        domainFileList.add(User.class, new User("sharmani", "Nikhil Sharma", null));
+        domainFileList.add(Author.class, Arrays.asList(new Author("Carl", "Sagan"), new Author("Orson", "Card")));
+        domainFileList.add(Book.class, Arrays.asList(
+                new Book("Cosmos", "Introduction"),
+                new Book("Ender's game", "Introduction")));
+        domainFileList.add(Comment.class, Arrays.asList(
+                new Comment(
+                        1,
+                        "this is a comment",
+                        dateFormat.parse("20170101"),
+                        dateFormat.parse("20170101"),
+                        bookInfo,
+                        userInfo,
+                        null),
+                new Comment(
+                        2,
+                        "this is also a comment",
+                        dateFormat.parse("20170101"),
+                        dateFormat.parse("20170101"),
+                        bookInfo,
+                        userInfo,
+                        null
+                )));
+        domainFileList.add(DefinitionBundle.class, Arrays.asList(new DefinitionBundle("a definition")));
+        domainFileList.add(Note.class, Arrays.asList(
+                new Note(
+                        "",
+                        "Don't you believe it",
+                        "Confirm this.",
+                        false,
+                        dateFormat.parse("20170101"),
+                        dateFormat.parse("20170101"),
+                        NoteType.QUESTION,
+                        userInfo,
+                        bookInfo,
+                        null),
+                new Note(
+                        "",
+                        "Interesting",
+                        "Good point.",
+                        false,
+                        dateFormat.parse("20170101"),
+                        dateFormat.parse("20170101"),
+                        NoteType.GENERAL_NOTE,
+                        userInfo,
+                        bookInfo,
+                        null
+                )));
+        domainFileList.add(Paragraph.class, Arrays.asList(
+                new Paragraph("this is a paragraph.", bookInfo),
+                new Paragraph("this is also a paragraph.", bookInfo)));
+        domainFileList.add(User.class, Arrays.asList(
+                new User("sharmani", "Nikhil Sharma", null),
+                new User("khawajah", "Hassan Khawaja", null)));
 
 
         domainFileList.getDomainFileInfos()
                 .entrySet()
-                .forEach(s -> generateFiles(s.getValue().fileName, s.getValue().jsonSchema, s.getValue().jsonExample));
+                .forEach(s -> generateFiles(s.getValue().fileName, s.getValue().jsonSchema, s.getValue().jsonExamples));
 
     }
 
-    private void generateFiles(String fileName, String jsonSchema, String jsonExample) {
+    private void generateFiles(String fileName, String jsonSchema, List<String> jsonExamples) {
         try {
             String schemaFilePath = "/Users/nik/Documents/development/pensive/raml/schemas/" + fileName + ".schema";
             String exampleFilePath = "/Users/nik/Documents/development/pensive/raml/examples/" + fileName + ".json";
             Files.write(Paths.get(schemaFilePath), jsonSchema.getBytes(), StandardOpenOption.CREATE);
-            Files.write(Paths.get(exampleFilePath), jsonExample.getBytes(), StandardOpenOption.CREATE);
+            Files.write(Paths.get(exampleFilePath), jsonExamples.get(0).getBytes(), StandardOpenOption.CREATE);
         } catch (IOException ioException) {
             System.out.println(ioException);
         }
@@ -88,12 +116,16 @@ public class RamlComponents {
         @Getter
         Map<Class, DomainFileInfo> domainFileInfos = new HashMap<>();
 
-        public void add(Class domainClass, Object example) throws JsonProcessingException {
+        public void add(Class domainClass, List<Object> examples) throws JsonProcessingException {
+            List<String> exampleStrings = new ArrayList<>();
+            for (Object example : examples) {
+                objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(example);
+            }
             domainFileInfos.put(domainClass, new DomainFileInfo(
                     domainClass.getSimpleName(),
                     objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(
                             jsonSchemaGenerator.generateSchema(domainClass)),
-                    objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(example)));
+                    exampleStrings));
         }
     }
 
@@ -101,6 +133,6 @@ public class RamlComponents {
     private class DomainFileInfo {
         private String fileName;
         private String jsonSchema;
-        private String jsonExample;
+        private List<String> jsonExamples;
     }
 }

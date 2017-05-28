@@ -1,0 +1,78 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:Pensive:note:Note",
+  "properties" : {
+    "quoteText" : {
+      "type" : "string"
+    },
+    "noteTitle" : {
+      "type" : "string"
+    },
+    "text" : {
+      "type" : "string"
+    },
+    "locked" : {
+      "type" : "boolean"
+    },
+    "creationDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "lastEditDate" : {
+      "type" : "integer",
+      "format" : "utc-millisec"
+    },
+    "typeOfNote" : {
+      "type" : "string",
+      "enum" : [ "GENERAL_NOTE", "QUESTION", "ANSWER", "CONCLUSION", "REASON", "ARGUMENT_INTRODUCTION", "ARGUMENT_SUMMARY" ]
+    },
+    "userInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:user:UserInfo",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "username" : {
+          "type" : "string"
+        }
+      }
+    },
+    "bookInfo" : {
+      "type" : "object",
+      "id" : "urn:jsonschema:Pensive:book:BookInfo",
+      "properties" : {
+        "bookId" : {
+          "type" : "integer"
+        },
+        "authorFirstName" : {
+          "type" : "string"
+        },
+        "authorLastName" : {
+          "type" : "string"
+        },
+        "bookTitle" : {
+          "type" : "string"
+        },
+        "chapterTitle" : {
+          "type" : "string"
+        }
+      }
+    },
+    "paragraphIds" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "errors" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  }
+}
